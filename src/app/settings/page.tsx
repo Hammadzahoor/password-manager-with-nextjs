@@ -52,6 +52,29 @@ export default function SettingsPage() {
 
         <aside className="flex flex-col gap-6">
           <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
+            <h3 className="text-lg font-semibold">Account</h3>
+            <p className="mt-2 text-sm text-zinc-400">
+              Basic profile and device info.
+            </p>
+            <div className="mt-4 space-y-3 text-sm text-zinc-300">
+              <div className="flex items-center justify-between">
+                <span>Primary email</span>
+                <span className="text-zinc-400">admin@vaultify.io</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Active devices</span>
+                <span className="text-zinc-400">2</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Last sign-in</span>
+                <span className="text-zinc-400">Today</span>
+              </div>
+            </div>
+            <button className="mt-5 w-full rounded-2xl border border-white/10 px-4 py-2 text-sm text-white/80">
+              Manage account
+            </button>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
             <h3 className="text-lg font-semibold">Notifications</h3>
             <p className="mt-2 text-sm text-zinc-400">
               Control where security alerts are delivered.
