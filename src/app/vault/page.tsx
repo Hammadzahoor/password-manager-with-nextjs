@@ -1,4 +1,5 @@
 import AppShell from "@/components/AppShell";
+import BackendStatus from "@/components/BackendStatus";
 import Link from "next/link";
 
 const entries = [
@@ -129,6 +130,7 @@ export default function VaultPage() {
         </div>
 
         <aside className="flex flex-col gap-6">
+          <BackendStatus />
           <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
             <h3 className="text-lg font-semibold">Filters</h3>
             <p className="mt-2 text-sm text-zinc-400">

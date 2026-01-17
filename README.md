@@ -18,6 +18,7 @@ Frontend-first password manager UI built with Next.js App Router and Tailwind CS
 - Settings Account: Profile summary
 - Settings Team: Basic members list
 - Vault Folders: Simple group list
+- Backend Status: Simple connection widget
 - Settings: Security policies and alerts
 - Login: Auth UI
 
@@ -31,7 +32,33 @@ npm run dev
 
 Open http://localhost:3000 to view the UI.
 
+## Simple Backend (Express + MongoDB)
+
+1) Copy env file:
+
+```bash
+cp .env.example .env
+```
+
+2) Update `MONGO_URI` if needed.
+
+3) Start the backend:
+
+```bash
+npm run server
+```
+
+The API runs on http://localhost:4000
+
+## API Endpoints
+
+- GET /api/health
+- GET /api/entries
+- POST /api/entries
+- GET /api/entries/:id
+- PUT /api/entries/:id
+- DELETE /api/entries/:id
+
 ## Notes
 
-- This is a frontend prototype only.
-- Backend/API wiring will be added in later steps.
+- Frontend is connected to the backend health check on the Vault page.
