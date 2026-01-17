@@ -1,0 +1,110 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+type Entry = {
+  _id: string;
+  name: string;
+  username: string;
+  password: string;
+};
+
+export default function EntriesPanel() {
+  const [entries, setEntries] = useState<Entry[]>([]);
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const loadEntries = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/api/entries");
+      const data = await response.json();
+      setEntries(data);
+    } catch {
+      setError("Failed to load entries");
+    }
+  };
+
+  useEffect(() => {
+    loadEntries();
+  }, []);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:4000/api/entries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Create failed");
+      }
+
+      setName("");
+      setUsername("");
+      setPassword("");
+      loadEntries();
+    } catch {
+      setError("Failed to save entry");
+    }
+  };
+
+  return (
+    <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
+      <h2 className="text-lg font-semibold">Live entries</h2>
+      <p className="mt-2 text-sm text-zinc-400">
+        Simple form connected to Express + MongoDB.
+      </p>
+
+      <form onSubmit={handleSubmit} className="mt-4 grid gap-3 md:grid-cols-3">
+        <input
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          placeholder="Name"
+          className="rounded-2xl border border-white/10 bg-black/40 px-4 py-2 text-sm text-white placeholder:text-zinc-500"
+        />
+        <input
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+          placeholder="Username"
+          className="rounded-2xl border border-white/10 bg-black/40 px-4 py-2 text-sm text-white placeholder:text-zinc-500"
+        />
+        <input
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          placeholder="Password"
+          className="rounded-2xl border border-white/10 bg-black/40 px-4 py-2 text-sm text-white placeholder:text-zinc-500"
+        />
+        <button className="rounded-full bg-emerald-500 px-5 py-2 text-sm font-semibold text-emerald-950 md:col-span-3 md:justify-self-start">
+          Save entry
+        </button>
+      </form>
+
+      {error ? <p className="mt-3 text-sm text-rose-300">{error}</p> : null}
+
+      <div className="mt-4 space-y-2 text-sm text-zinc-300">
+        {entries.length === 0 ? (
+          <p className="text-zinc-500">No entries yet.</p>
+        ) : (
+          entries.map((entry) => (
+            <div
+              key={entry._id}
+              className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
+            >
+              <div>
+                <p className="text-sm text-white">{entry.name}</p>
+                <p className="text-xs text-zinc-500">{entry.username}</p>
+              </div>
+              <span className="text-xs text-zinc-500">Saved</span>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}

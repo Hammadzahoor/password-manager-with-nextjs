@@ -1,5 +1,6 @@
 import AppShell from "@/components/AppShell";
 import BackendStatus from "@/components/BackendStatus";
+import EntriesPanel from "@/components/EntriesPanel";
 import Link from "next/link";
 
 const entries = [
@@ -61,7 +62,9 @@ export default function VaultPage() {
       }
     >
       <section className="grid gap-6 lg:grid-cols-[1.5fr_0.7fr]">
-        <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
+        <div className="flex flex-col gap-6">
+          <EntriesPanel />
+          <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-semibold">Vault entries</h2>
@@ -107,25 +110,26 @@ export default function VaultPage() {
               </Link>
             ))}
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-zinc-400">
-            <span className="uppercase tracking-[0.2em] text-zinc-500">Quick tags</span>
-            {[
-              "finance",
-              "infra",
-              "marketing",
-              "shared",
-              "recent",
-            ].map((tag) => (
-              <button
-                key={tag}
-                className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80"
-              >
-                {tag}
-              </button>
-            ))}
-            <span className="ml-auto rounded-full border border-white/10 px-3 py-1">
-              18 results
-            </span>
+            <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-zinc-400">
+              <span className="uppercase tracking-[0.2em] text-zinc-500">Quick tags</span>
+              {[
+                "finance",
+                "infra",
+                "marketing",
+                "shared",
+                "recent",
+              ].map((tag) => (
+                <button
+                  key={tag}
+                  className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80"
+                >
+                  {tag}
+                </button>
+              ))}
+              <span className="ml-auto rounded-full border border-white/10 px-3 py-1">
+                18 results
+              </span>
+            </div>
           </div>
         </div>
 
