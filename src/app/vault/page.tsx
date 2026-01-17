@@ -172,6 +172,26 @@ export default function VaultPage() {
               </button>
             </div>
           </div>
+            <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
+              <h3 className="text-lg font-semibold">Vault health</h3>
+              <p className="mt-2 text-sm text-zinc-400">
+                Quick look at overall hygiene.
+              </p>
+              <div className="mt-4 space-y-3 text-sm text-zinc-300">
+                <div className="flex items-center justify-between">
+                  <span>Healthy</span>
+                  <span className="text-emerald-300">112</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>Needs rotation</span>
+                  <span className="text-amber-300">9</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>High risk</span>
+                  <span className="text-rose-300">3</span>
+                </div>
+              </div>
+            </div>
           <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
             <h3 className="text-lg font-semibold">Security checklist</h3>
             <p className="mt-2 text-sm text-zinc-400">
