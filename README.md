@@ -19,7 +19,7 @@ Frontend-first password manager UI built with Next.js App Router and Tailwind CS
 - Settings Team: Basic members list
 - Vault Folders: Simple group list
 - Backend Status: Simple connection widget
-- Live Entries: Create/list/delete
+- Live Entries: Create/list/update/delete
 - Settings: Security policies and alerts
 - Login: Auth UI
 
@@ -56,9 +56,9 @@ The API runs on http://localhost:3000/api
 - GET /api/health
 - GET /api/entries
 - POST /api/entries
-- GET /api/entries/:id
-- PUT /api/entries/:id
-- DELETE /api/entries/:id
+- GET /api/entries?id=ENTRY_ID
+- PUT /api/entries?id=ENTRY_ID
+- DELETE /api/entries?id=ENTRY_ID
 
 ## Notes
 

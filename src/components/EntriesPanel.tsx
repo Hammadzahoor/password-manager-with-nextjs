@@ -15,6 +15,7 @@ export default function EntriesPanel() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const loadEntries = async () => {
     try {
@@ -28,7 +29,7 @@ export default function EntriesPanel() {
 
   const handleDelete = async (id: string) => {
     try {
-      await fetch(`/api/entries/${id}`, {
+      await fetch(`/api/entries?id=${id}`, {
         method: "DELETE",
       });
       loadEntries();
@@ -46,8 +47,10 @@ export default function EntriesPanel() {
     setError("");
 
     try {
-      const response = await fetch("/api/entries", {
-        method: "POST",
+      const endpoint = editingId ? `/api/entries?id=${editingId}` : "/api/entries";
+      const method = editingId ? "PUT" : "POST";
+      const response = await fetch(endpoint, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, username, password }),
       });
@@ -59,10 +62,25 @@ export default function EntriesPanel() {
       setName("");
       setUsername("");
       setPassword("");
+      setEditingId(null);
       loadEntries();
     } catch {
-      setError("Failed to save entry");
+      setError(editingId ? "Failed to update entry" : "Failed to save entry");
     }
+  };
+
+  const handleEdit = (entry: Entry) => {
+    setEditingId(entry._id);
+    setName(entry.name);
+    setUsername(entry.username);
+    setPassword(entry.password);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setName("");
+    setUsername("");
+    setPassword("");
   };
 
   return (
@@ -91,9 +109,20 @@ export default function EntriesPanel() {
           placeholder="Password"
           className="rounded-2xl border border-white/10 bg-black/40 px-4 py-2 text-sm text-white placeholder:text-zinc-500"
         />
-        <button className="rounded-full bg-emerald-500 px-5 py-2 text-sm font-semibold text-emerald-950 md:col-span-3 md:justify-self-start">
-          Save entry
-        </button>
+        <div className="flex flex-wrap gap-3 md:col-span-3">
+          <button className="rounded-full bg-emerald-500 px-5 py-2 text-sm font-semibold text-emerald-950">
+            {editingId ? "Save changes" : "Save entry"}
+          </button>
+          {editingId ? (
+            <button
+              type="button"
+              onClick={cancelEdit}
+              className="rounded-full border border-white/10 px-5 py-2 text-sm text-white/80"
+            >
+              Cancel edit
+            </button>
+          ) : null}
+        </div>
       </form>
 
       {error ? <p className="mt-3 text-sm text-rose-300">{error}</p> : null}
@@ -113,6 +142,12 @@ export default function EntriesPanel() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-xs text-zinc-500">Saved</span>
+                <button
+                  onClick={() => handleEdit(entry)}
+                  className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80"
+                >
+                  Edit
+                </button>
                 <button
                   onClick={() => handleDelete(entry._id)}
                   className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80"
