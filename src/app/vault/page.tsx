@@ -172,6 +172,21 @@ export default function VaultPage() {
               </button>
             </div>
           </div>
+          <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
+            <h3 className="text-lg font-semibold">Folders</h3>
+            <p className="mt-2 text-sm text-zinc-400">Common vault groups.</p>
+            <div className="mt-4 space-y-2 text-sm text-zinc-300">
+              {["Finance", "Infrastructure", "Ops", "Personal"].map((folder) => (
+                <div
+                  key={folder}
+                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
+                >
+                  <span>{folder}</span>
+                  <span className="text-xs text-zinc-500">4</span>
+                </div>
+              ))}
+            </div>
+          </div>
             <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
               <h3 className="text-lg font-semibold">Vault health</h3>
               <p className="mt-2 text-sm text-zinc-400">

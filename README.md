@@ -17,6 +17,7 @@ Frontend-first password manager UI built with Next.js App Router and Tailwind CS
 - Vault Health: Simple summary card
 - Settings Account: Profile summary
 - Settings Team: Basic members list
+- Vault Folders: Simple group list
 - Settings: Security policies and alerts
 - Login: Auth UI
 
