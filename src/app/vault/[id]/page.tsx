@@ -2,15 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import AppShell from "@/components/AppShell";
 import { generatePassword } from "@/lib/password";
-
-const access = [
-  { name: "Security team", role: "Edit", status: "Active" },
-  { name: "Finance", role: "View", status: "Active" },
-  { name: "Ops", role: "Rotate", status: "Pending" },
-];
 
 type Entry = {
   _id: string;
@@ -32,9 +26,9 @@ const statusStyles: Record<string, string> = {
 
 export default function VaultEntryDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const router = useRouter();
   const [entry, setEntry] = useState<Entry | null>(null);
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const loadEntry = async () => {
     try {
@@ -58,6 +52,14 @@ export default function VaultEntryDetailPage() {
     }
     await navigator.clipboard.writeText(entry.password);
     setMessage("Password copied.");
+  };
+
+  const copyValue = async (label: string, value?: string) => {
+    if (!value) {
+      return;
+    }
+    await navigator.clipboard.writeText(value);
+    setMessage(`${label} copied.`);
   };
 
   const rotatePassword = async () => {
@@ -115,7 +117,7 @@ export default function VaultEntryDetailPage() {
         </div>
       }
     >
-      <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+      <div className="grid gap-6">
         <section className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
           <div className="flex items-start justify-between gap-6">
             <div>
@@ -135,24 +137,69 @@ export default function VaultEntryDetailPage() {
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {[
-              { label: "Username", value: entry?.username || "-" },
-              { label: "URL", value: entry?.url || "-" },
-              { label: "Vault folder", value: "Infrastructure" },
-              { label: "Rotation", value: "Every 90 days" },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
-              >
-                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">{item.label}</p>
-                <p className="mt-2 text-sm text-white">{item.value}</p>
+            <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3">
+              <div className="flex items-center justify-between">
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Username</p>
+                <button
+                  onClick={() => copyValue("Username", entry?.username)}
+                  className="rounded-full border border-white/10 px-2 py-1 text-[10px] text-white/80"
+                  aria-label="Copy username"
+                >
+                  📋
+                </button>
               </div>
-            ))}
+              <p className="mt-2 text-sm text-white">{entry?.username || "-"}</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3">
+              <div className="flex items-center justify-between">
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">URL</p>
+                <button
+                  onClick={() => copyValue("URL", entry?.url)}
+                  className="rounded-full border border-white/10 px-2 py-1 text-[10px] text-white/80"
+                  aria-label="Copy URL"
+                >
+                  📋
+                </button>
+              </div>
+              <p className="mt-2 text-sm text-white break-all">{entry?.url || "-"}</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3">
+              <div className="flex items-center justify-between">
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Password</p>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="rounded-full border border-white/10 px-2 py-1 text-[10px] text-white/80"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? "🙈" : "👁"}
+                  </button>
+                  <button
+                    onClick={copyPassword}
+                    className="rounded-full border border-white/10 px-2 py-1 text-[10px] text-white/80"
+                    aria-label="Copy password"
+                  >
+                    📋
+                  </button>
+                </div>
+              </div>
+              <p className="mt-2 text-sm text-white">
+                {entry?.password ? (showPassword ? entry.password : "••••••••") : "-"}
+              </p>
+            </div>
           </div>
 
           <div className="mt-6 rounded-2xl border border-white/10 bg-black/30 p-4">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Notes</p>
+            <div className="flex items-center justify-between">
+              <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Notes</p>
+              <button
+                onClick={() => copyValue("Notes", entry?.notes)}
+                className="rounded-full border border-white/10 px-2 py-1 text-[10px] text-white/80"
+                aria-label="Copy notes"
+              >
+                📋
+              </button>
+            </div>
             <p className="mt-2 text-sm text-zinc-300">{entry?.notes || "-"}</p>
           </div>
 
@@ -178,45 +225,6 @@ export default function VaultEntryDetailPage() {
           </div>
           {message ? <p className="mt-3 text-sm text-zinc-400">{message}</p> : null}
         </section>
-
-        <aside className="flex flex-col gap-6">
-          <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
-            <h3 className="text-lg font-semibold">Shared access</h3>
-            <p className="mt-2 text-sm text-zinc-400">
-              Manage who can view or edit this entry.
-            </p>
-            <div className="mt-4 space-y-3">
-              {access.map((item) => (
-                <div
-                  key={item.name}
-                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
-                >
-                  <div>
-                    <p className="text-sm text-white">{item.name}</p>
-                    <p className="text-xs text-zinc-500">{item.role}</p>
-                  </div>
-                  <span className="text-xs text-emerald-300">{item.status}</span>
-                </div>
-              ))}
-            </div>
-            <button className="mt-5 w-full rounded-2xl border border-white/10 px-4 py-2 text-sm text-white/80">
-              Update sharing
-            </button>
-          </div>
-
-          <div className="rounded-3xl border border-emerald-500/20 bg-emerald-500/10 p-6">
-            <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">
-              Risk insights
-            </p>
-            <h3 className="mt-3 text-lg font-semibold text-white">High risk credential</h3>
-            <p className="mt-2 text-sm text-emerald-100/80">
-              Detected 3 shared admins and rotation overdue by 15 days.
-            </p>
-            <button className="mt-5 w-full rounded-2xl bg-emerald-400 px-4 py-2 text-sm font-semibold text-emerald-950">
-              Review risk plan
-            </button>
-          </div>
-        </aside>
       </div>
     </AppShell>
   );
