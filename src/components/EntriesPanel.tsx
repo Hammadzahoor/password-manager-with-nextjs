@@ -28,6 +28,10 @@ export default function EntriesPanel() {
   };
 
   const handleDelete = async (id: string) => {
+    const confirmed = window.confirm("Delete this entry? This will remove it from the database.");
+    if (!confirmed) {
+      return;
+    }
     try {
       await fetch(`/api/entries?id=${id}`, {
         method: "DELETE",
