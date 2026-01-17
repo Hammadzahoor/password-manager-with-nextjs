@@ -110,6 +110,49 @@ export default function VaultPage() {
 
         <aside className="flex flex-col gap-6">
           <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
+            <h3 className="text-lg font-semibold">Filters</h3>
+            <p className="mt-2 text-sm text-zinc-400">
+              Narrow results by risk, status, and ownership.
+            </p>
+            <div className="mt-4 space-y-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Risk</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {[
+                    { label: "High", style: "border-rose-500/30 text-rose-200" },
+                    { label: "Medium", style: "border-amber-500/30 text-amber-200" },
+                    { label: "Low", style: "border-emerald-500/30 text-emerald-200" },
+                  ].map((chip) => (
+                    <button
+                      key={chip.label}
+                      className={`rounded-full border px-3 py-1 text-xs ${chip.style}`}
+                    >
+                      {chip.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Status</p>
+                <div className="mt-2 grid gap-2 text-sm text-zinc-300">
+                  {[
+                    "Healthy",
+                    "Rotate",
+                    "Locked",
+                  ].map((status) => (
+                    <label key={status} className="flex items-center gap-2">
+                      <input type="checkbox" className="h-4 w-4 rounded border-white/20" />
+                      {status}
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <button className="w-full rounded-2xl border border-white/10 px-4 py-2 text-sm text-white/80">
+                Apply filters
+              </button>
+            </div>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
             <h3 className="text-lg font-semibold">Security checklist</h3>
             <p className="mt-2 text-sm text-zinc-400">
               Quick actions to keep your vault healthy.
