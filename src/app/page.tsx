@@ -37,27 +37,27 @@ export default function Home() {
         <section className="rounded-3xl border border-white/10 bg-gradient-to-br from-zinc-900 via-zinc-900 to-emerald-950/40 p-10">
           <div className="flex flex-col gap-6">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-300">
-              Frontend preview
+              Product overview
             </p>
             <h2 className="text-4xl font-semibold leading-tight md:text-5xl">
               Store every credential in one calm, encrypted workspace.
             </h2>
             <p className="text-base text-zinc-300 md:text-lg">
               Organize logins, secure notes, and shared access with a clean vault UI built
-              entirely in Next.js. Backend integrations will follow after the UI is approved.
+              in Next.js and connected to MongoDB.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/vault"
                 className="rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-400"
               >
-                Create vault
+                Open vault
               </Link>
               <Link
                 href="/vault"
                 className="rounded-full border border-white/10 px-6 py-3 text-sm font-semibold text-white/90 transition hover:border-white/40"
               >
-                See vault preview
+                View entries
               </Link>
             </div>
             <div className="flex flex-wrap gap-4 text-xs text-zinc-400">
@@ -95,8 +95,8 @@ export default function Home() {
 
 
         <footer className="flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 text-sm text-zinc-500 md:flex-row">
-          <p>Frontend prototype for the Password Manager app.</p>
-          <p>Next.js UI only — backend integration comes next.</p>
+          <p>Vaultify Password Manager — Next.js + MongoDB.</p>
+          <p>Manage entries securely with live CRUD.</p>
         </footer>
       </div>
     </div>
