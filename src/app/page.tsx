@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
@@ -16,13 +18,20 @@ export default function Home() {
           </div>
           <nav className="hidden items-center gap-8 text-sm text-zinc-300 md:flex">
             <span className="text-white">Overview</span>
-            <span>Vault</span>
-            <span>Security</span>
+            <Link href="/vault" className="transition hover:text-white">
+              Vault
+            </Link>
+            <Link href="/settings" className="transition hover:text-white">
+              Security
+            </Link>
             <span>Pricing</span>
           </nav>
-          <button className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/90 transition hover:border-white/40">
+          <Link
+            href="/login"
+            className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/90 transition hover:border-white/40"
+          >
             Sign in
-          </button>
+          </Link>
         </header>
 
         <section className="grid gap-10 rounded-3xl border border-white/10 bg-gradient-to-br from-zinc-900 via-zinc-900 to-emerald-950/40 p-10 md:grid-cols-[1.2fr_0.8fr]">
@@ -38,12 +47,18 @@ export default function Home() {
               entirely in Next.js. Backend integrations will follow after the UI is approved.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-400">
+              <Link
+                href="/vault"
+                className="rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-400"
+              >
                 Create vault
-              </button>
-              <button className="rounded-full border border-white/10 px-6 py-3 text-sm font-semibold text-white/90 transition hover:border-white/40">
+              </Link>
+              <Link
+                href="/vault"
+                className="rounded-full border border-white/10 px-6 py-3 text-sm font-semibold text-white/90 transition hover:border-white/40"
+              >
                 See vault preview
-              </button>
+              </Link>
             </div>
             <div className="flex flex-wrap gap-4 text-xs text-zinc-400">
               <span className="rounded-full border border-white/10 px-3 py-1">Zero-knowledge UI</span>
