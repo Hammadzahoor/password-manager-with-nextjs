@@ -84,17 +84,23 @@ export default function EditVaultEntryPage() {
             <div className="mt-4 grid gap-3">
               <label className="grid gap-2 text-sm text-zinc-300">
                 Rotation interval
-                <select className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white">
+                <select
+                  defaultValue="Every 90 days"
+                  className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white"
+                >
                   <option>Every 30 days</option>
                   <option>Every 60 days</option>
-                  <option selected>Every 90 days</option>
+                  <option>Every 90 days</option>
                 </select>
               </label>
               <label className="grid gap-2 text-sm text-zinc-300">
                 Alerts
-                <select className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white">
+                <select
+                  defaultValue="Notify 14 days before"
+                  className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white"
+                >
                   <option>Notify 7 days before</option>
-                  <option selected>Notify 14 days before</option>
+                  <option>Notify 14 days before</option>
                   <option>Notify 30 days before</option>
                 </select>
               </label>
