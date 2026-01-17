@@ -33,7 +33,7 @@ npm run dev
 
 Open http://localhost:3000 to view the UI.
 
-## Simple Backend (Express + MongoDB)
+## Simple Backend (Next.js API + MongoDB)
 
 1) Copy env file:
 
@@ -43,13 +43,13 @@ cp .env.example .env
 
 2) Update `MONGO_URI` if needed.
 
-3) Start the backend:
+3) Start the app:
 
 ```bash
-npm run server
+npm run dev
 ```
 
-The API runs on http://localhost:4000
+The API runs on http://localhost:3000/api
 
 ## API Endpoints
 

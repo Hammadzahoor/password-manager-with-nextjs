@@ -18,7 +18,7 @@ export default function EntriesPanel() {
 
   const loadEntries = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/entries");
+      const response = await fetch("/api/entries");
       const data = await response.json();
       setEntries(data);
     } catch {
@@ -28,7 +28,7 @@ export default function EntriesPanel() {
 
   const handleDelete = async (id: string) => {
     try {
-      await fetch(`http://localhost:4000/api/entries/${id}`, {
+      await fetch(`/api/entries/${id}`, {
         method: "DELETE",
       });
       loadEntries();
@@ -46,7 +46,7 @@ export default function EntriesPanel() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:4000/api/entries", {
+      const response = await fetch("/api/entries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, username, password }),
@@ -69,7 +69,7 @@ export default function EntriesPanel() {
     <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
       <h2 className="text-lg font-semibold">Live entries</h2>
       <p className="mt-2 text-sm text-zinc-400">
-        Simple form connected to Express + MongoDB.
+        Simple form connected to Next.js API + MongoDB.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-4 grid gap-3 md:grid-cols-3">

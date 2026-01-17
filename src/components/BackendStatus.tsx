@@ -8,7 +8,7 @@ export default function BackendStatus() {
   useEffect(() => {
     const check = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/health");
+        const response = await fetch("/api/health");
         if (!response.ok) {
           throw new Error("Bad response");
         }
@@ -26,7 +26,7 @@ export default function BackendStatus() {
     <div className="rounded-3xl border border-white/10 bg-zinc-900/60 p-6">
       <h3 className="text-lg font-semibold">Backend status</h3>
       <p className="mt-2 text-sm text-zinc-400">
-        Express + MongoDB server connection.
+        Next.js API + MongoDB connection.
       </p>
       <div className="mt-4 text-sm text-white">{status}</div>
     </div>
