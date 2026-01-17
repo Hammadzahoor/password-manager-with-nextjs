@@ -19,7 +19,7 @@ Frontend-first password manager UI built with Next.js App Router and Tailwind CS
 - Settings Team: Basic members list
 - Vault Folders: Simple group list
 - Backend Status: Simple connection widget
-- Live Entries: Basic create/list form
+- Live Entries: Create/list/delete
 - Settings: Security policies and alerts
 - Login: Auth UI
 

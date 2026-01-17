@@ -26,6 +26,17 @@ export default function EntriesPanel() {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    try {
+      await fetch(`http://localhost:4000/api/entries/${id}`, {
+        method: "DELETE",
+      });
+      loadEntries();
+    } catch {
+      setError("Failed to delete entry");
+    }
+  };
+
   useEffect(() => {
     loadEntries();
   }, []);
@@ -94,13 +105,21 @@ export default function EntriesPanel() {
           entries.map((entry) => (
             <div
               key={entry._id}
-              className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
+              className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
             >
               <div>
                 <p className="text-sm text-white">{entry.name}</p>
                 <p className="text-xs text-zinc-500">{entry.username}</p>
               </div>
-              <span className="text-xs text-zinc-500">Saved</span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-zinc-500">Saved</span>
+                <button
+                  onClick={() => handleDelete(entry._id)}
+                  className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))
         )}
