@@ -170,6 +170,36 @@ export default function Home() {
           ))}
         </section>
 
+        <section className="rounded-3xl border border-white/10 bg-zinc-900/60 p-8">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Recent activity</p>
+              <h3 className="mt-2 text-2xl font-semibold">Latest vault events</h3>
+            </div>
+            <button className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/80">
+              View audit log
+            </button>
+          </div>
+          <div className="mt-6 grid gap-4">
+            {[
+              { action: "Rotated AWS Root", time: "12 minutes ago", owner: "Security team" },
+              { action: "Shared Stripe Admin", time: "2 hours ago", owner: "Finance" },
+              { action: "Added Notion Workspace", time: "Yesterday", owner: "Ops" },
+            ].map((event) => (
+              <div
+                key={event.action}
+                className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
+              >
+                <div>
+                  <p className="text-sm font-semibold text-white">{event.action}</p>
+                  <p className="text-xs text-zinc-500">{event.owner}</p>
+                </div>
+                <span className="text-xs text-zinc-400">{event.time}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <footer className="flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 text-sm text-zinc-500 md:flex-row">
           <p>Frontend prototype for the Password Manager app.</p>
           <p>Next.js UI only — backend integration comes next.</p>
